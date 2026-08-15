@@ -39,8 +39,11 @@ pipeline {
         stage('Login to ECR') {
             steps {
                 withCredentials([
-                    [$class: 'AmazonWebServicesCredentialsBinding',
-                     credentialsId: 'aws-ecr-credentials']
+                    usernamePassword(
+                        credentialsId: 'aws-ecr-credentials',
+                        usernameVariable: 'AWS_ACCESS_KEY_ID',
+                        passwordVariable: 'AWS_SECRET_ACCESS_KEY'
+                    )
                 ]) {
                     sh '''
                         docker run --rm \
@@ -71,8 +74,11 @@ pipeline {
         stage('Deploy to ECS') {
             steps {
                 withCredentials([
-                    [$class: 'AmazonWebServicesCredentialsBinding',
-                     credentialsId: 'aws-ecr-credentials']
+                    usernamePassword(
+                        credentialsId: 'aws-ecr-credentials',
+                        usernameVariable: 'AWS_ACCESS_KEY_ID',
+                        passwordVariable: 'AWS_SECRET_ACCESS_KEY'
+                    )
                 ]) {
                     sh '''
                         docker run --rm \
@@ -102,7 +108,7 @@ pipeline {
         }
 
         failure {
-            echo 'Pipeline failed. Check the stage above for the error.'
+            echo 'Pipeline failed. Check the failed stage for the error.'
         }
     }
 }
