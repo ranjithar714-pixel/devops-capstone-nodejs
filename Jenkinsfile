@@ -16,14 +16,6 @@ pipeline {
             }
         }
 
-        stage('Test Application') {
-            steps {
-                sh 'node --version'
-                sh 'npm --version'
-                sh 'npm install'
-            }
-        }
-
         stage('Build Docker Image') {
             steps {
                 sh 'docker build -t my-node-app:latest .'
