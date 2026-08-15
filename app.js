@@ -7,7 +7,7 @@ const PORT = 3000;
 
 // 3. Create a basic route for the homepage
 app.get('/', (req, res) => {
-    res.send('Hello from my DevOps Capstone!');
+    res.send('Hello from my AWS DevOps Capstone!!');
 });
 
 // 4. Bind the application to a network port
